@@ -1,5 +1,5 @@
 import { Router } from "express";
 
-const proyectRouter = Router();
+const projectRouter = Router();
 
-proyectRouter.route("/proyects");
+projectRouter.route("/projects");

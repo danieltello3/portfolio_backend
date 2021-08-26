@@ -1,6 +1,8 @@
 import express, { Response, Request, NextFunction, json } from "express";
+import { connect } from "mongoose";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import { imageRouter } from "../routes/image.routes";
 
 dotenv.config();
 
@@ -20,6 +22,9 @@ export default class Server {
       this.app.get("/", (req: Request, res: Response) => {
          res.json({ successs: true });
       });
+      // const ectLocation = __dirname.slice(0, __dirname.search("src"));
+      // this.app.use("/assets", express.static(ectLocation + "/media"));
+      this.app.use(imageRouter);
    }
    CORS() {
       this.app.use((req: Request, res: Response, next: NextFunction) => {
@@ -37,6 +42,16 @@ export default class Server {
          console.log(
             `Servidor corriendo exitosamente en el puerto ${this.port}`
          );
+         try {
+            process.env.MONGODB_URI &&
+               (await connect(process.env.MONGODB_URI, {
+                  useNewUrlParser: true,
+                  useUnifiedTopology: true,
+               }));
+            console.log("Base de datos sincronizada correctamente");
+         } catch (error) {
+            console.log("Error al conectarse a la DB", error);
+         }
       });
    }
 }
