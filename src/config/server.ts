@@ -3,6 +3,7 @@ import { connect } from "mongoose";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { imageRouter } from "../routes/image.routes";
+import { projectRouter } from "../routes/proyect.routes";
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ export default class Server {
       });
       // const ectLocation = __dirname.slice(0, __dirname.search("src"));
       // this.app.use("/assets", express.static(ectLocation + "/media"));
-      this.app.use(imageRouter);
+      this.app.use(imageRouter, projectRouter);
    }
    CORS() {
       this.app.use((req: Request, res: Response, next: NextFunction) => {

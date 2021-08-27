@@ -5,16 +5,25 @@ interface IImage {
    location?: string;
    date?: Number;
    path: string;
-   url: string;
+   url?: string;
 }
-
 interface IProject {
    title: string;
    image: IImage;
    description: string;
    link?: string;
-   githubLinks?: string[];
+   githubLinks?: Object;
 }
+
+interface IGithubLinks {
+   frontend?: string;
+   backend?: string;
+}
+
+const githubLinkSchema = new Schema<IGithubLinks>({
+   frontend: { type: Schema.Types.String },
+   backend: { type: Schema.Types.String },
+});
 
 const imageSchema = new Schema<IImage>(
    {
@@ -56,7 +65,7 @@ const projectSchema = new Schema<IProject>(
          required: true,
       },
       link: { type: Schema.Types.String },
-      githubLinks: { type: [Schema.Types.ObjectId] },
+      githubLinks: { type: githubLinkSchema },
    },
    {
       versionKey: false,

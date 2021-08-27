@@ -1,5 +1,4 @@
 import { Storage } from "@google-cloud/storage";
-import { Express } from "express";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,27 +21,28 @@ export const uploadFile = (
       if (!file) {
          reject("No se encontro el archivo");
       }
+      if (path === "photography" || path === "projects") {
+         const new_file = bucket.file(`${path}/${file.originalname}`);
 
-      const new_file = bucket.file(`${path}/${file.originalname}`);
+         const blobStream = new_file.createWriteStream({
+            metadata: { contentType: file.mimetype },
+            public: true,
+         });
 
-      const blobStream = new_file.createWriteStream({
-         metadata: { contentType: file.mimetype },
-         public: true,
-      });
+         blobStream.on("error", (e) => {
+            reject(e.message);
+         });
 
-      blobStream.on("error", (e) => {
-         reject(e.message);
-      });
-
-      blobStream.on("finish", () => {
-         try {
-            const publicUrl = new_file.publicUrl();
-            resolve(publicUrl);
-         } catch (error) {
-            reject(error);
-         }
-      });
-      blobStream.end(file.buffer);
+         blobStream.on("finish", () => {
+            try {
+               const publicUrl = new_file.publicUrl();
+               resolve(publicUrl);
+            } catch (error) {
+               reject(error);
+            }
+         });
+         blobStream.end(file.buffer);
+      }
    });
 };
 
