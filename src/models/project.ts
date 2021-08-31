@@ -3,6 +3,8 @@ import { model, Schema } from "mongoose";
 interface IImage {
    name: string;
    location?: string;
+   width?: number;
+   height?: number;
    date?: Number;
    path: string;
    url?: string;
@@ -33,6 +35,12 @@ const imageSchema = new Schema<IImage>(
       },
       location: {
          type: Schema.Types.String,
+      },
+      width: {
+         type: Schema.Types.Number,
+      },
+      height: {
+         type: Schema.Types.Number,
       },
       date: {
          type: Schema.Types.Number,

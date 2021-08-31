@@ -4,7 +4,7 @@ import { Imagen } from "../models/project";
 import { deleteFile, uploadFile } from "../utils/firebase";
 
 export const postImage = async (req: Request, res: Response) => {
-   const { path, location, date } = req.body;
+   const { path } = req.body;
    console.log(req.file?.buffer);
    if (!path) {
       return res
