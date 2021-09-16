@@ -22,9 +22,23 @@ interface IGithubLinks {
    backend?: string;
 }
 
+interface IMail {
+   name: string;
+   email: string;
+   phone?: number;
+   message: string;
+}
+
 const githubLinkSchema = new Schema<IGithubLinks>({
    frontend: { type: Schema.Types.String },
    backend: { type: Schema.Types.String },
+});
+
+const mailSchema = new Schema<IMail>({
+   name: { type: Schema.Types.String, required: true },
+   email: { type: Schema.Types.String, required: true },
+   phone: { type: Schema.Types.Number },
+   message: { type: Schema.Types.String, required: true },
 });
 
 const imageSchema = new Schema<IImage>(
@@ -82,3 +96,4 @@ const projectSchema = new Schema<IProject>(
 
 export const Imagen = model<IImage>("images", imageSchema);
 export const Proyecto = model<IProject>("projects", projectSchema);
+export const Mail = model<IMail>("contacts", mailSchema);

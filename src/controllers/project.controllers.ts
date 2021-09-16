@@ -39,7 +39,7 @@ export const createProject = async (req: Request, res: Response) => {
       console.log(error);
       return res
          .status(400)
-         .json({ success: true, content: null, message: error.message });
+         .json({ success: true, content: null, message: error });
    }
 };
 export const getProjects = async (req: Request, res: Response) => {
