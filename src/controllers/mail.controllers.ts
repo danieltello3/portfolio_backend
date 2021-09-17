@@ -12,9 +12,9 @@ export const sendEmail = async (req: Request, res: Response) => {
          to: process.env.MAIL_RECEIVER,
          subject: `message from portfolio - ${name}`,
          html: `
-         <b>${name}</b><br>
-         <b>${email}</b><br>
-         <b>${phone}</b><br>
+         <b>Nombre: ${name}</b><br>
+         <b>Email: ${email}</b><br>
+         <b>Telefono: ${phone}</b><br>
          <b>Mensaje:</b><br>
          <p>${message}</p>`,
       });
