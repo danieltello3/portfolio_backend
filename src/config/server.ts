@@ -33,7 +33,7 @@ export default class Server {
          res.header("Access-Control-Allow-Origin", "*");
          res.header(
             "Acess-Control-Allow-Headers",
-            "Conten-Type, Authorization"
+            "Content-Type, Authorization"
          );
          res.header("Access-Control-Allow-Methods", "GET,POST,DELETE");
          next();
